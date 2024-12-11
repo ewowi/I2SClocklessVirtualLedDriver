@@ -1977,6 +1977,11 @@ Driver data (overall frames):\n     - nb of frames displayed:%d\n     - nb of fr
 
     void initled(int *Pinsq, int clock_pin, int latch_pin)
     {
+        if(driverInit)
+        {
+            setPins(Pinsq, clock_pin, latch_pin);
+            return;
+        }
         ICVD_LOGI(TAG, "Start driver");
         driverInit = false;
         isOffsetDisplay = false;
