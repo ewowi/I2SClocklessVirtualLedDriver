@@ -273,10 +273,10 @@ typedef struct
     int div_b;
 } clock_speed;
 
-clock_speed clock_1123KHZ = {4, 20, 9}; //{4, 20, 9};
-clock_speed clock_1111KHZ = {4, 2, 1};
-clock_speed clock_1000KHZ = {5, 1, 0};
-clock_speed clock_800KHZ = {6, 4, 1};
+static clock_speed clock_1123KHZ = {4, 20, 9}; //{4, 20, 9};
+static clock_speed clock_1111KHZ = {4, 2, 1};
+static clock_speed clock_1000KHZ = {5, 1, 0};
+static clock_speed clock_800KHZ = {6, 4, 1};
 
 #define WS2812_DMA_DESCRIPTOR_BUFFER_MAX_SIZE (576 * 2)
 
@@ -316,8 +316,8 @@ clock_speed clock_800KHZ = {6, 4, 1};
 #define NUM_VIRT_PINS 7
 
 #ifndef NUM_LEDS_PER_STRIP
-volatile int NUM_LEDS_PER_STRIP;
-volatile int NBIS2SERIALPINS;
+static volatile int NUM_LEDS_PER_STRIP;
+static volatile int NBIS2SERIALPINS;
 #else
 #ifndef NBIS2SERIALPINS
 #define NBIS2SERIALPINS 1
@@ -404,15 +404,15 @@ volatile int NBIS2SERIALPINS;
 
 #define OFFSET (NUM_VIRT_PINS + 1)
 #ifndef NUM_LEDS_PER_STRIP
-volatile uint16_t I2S_OFF;
-volatile uint16_t I2S_OFF2;
-volatile uint16_t I2S_OFF3;
-volatile uint16_t I2S_OFF4;
-volatile uint16_t I2S_OFF_MAP;
-volatile uint16_t I2S_OFF2_MAP;
-volatile uint16_t I2S_OFF3_MAP;
-volatile uint16_t I2S_OFF4_MAP;
-volatile uint16_t BUFFOFF;
+static volatile uint16_t I2S_OFF;
+static volatile uint16_t I2S_OFF2;
+static volatile uint16_t I2S_OFF3;
+static volatile uint16_t I2S_OFF4;
+static volatile uint16_t I2S_OFF_MAP;
+static volatile uint16_t I2S_OFF2_MAP;
+static volatile uint16_t I2S_OFF3_MAP;
+static volatile uint16_t I2S_OFF4_MAP;
+static volatile uint16_t BUFFOFF;
 #else
 #define I2S_OFF (((NUM_VIRT_PINS + 1) * NUM_LEDS_PER_STRIP) * _palette_size)
 #define I2S_OFF2 ((I2S_OFF * NBIS2SERIALPINS - NUM_LEDS_PER_STRIP * _palette_size))
@@ -519,7 +519,7 @@ volatile uint16_t BUFFOFF;
 
 #include "framebuffer.h"
 
-uint16_t __default__mapping(uint16_t pos)
+static uint16_t __default__mapping(uint16_t pos)
 {
     return pos;
 }
@@ -605,13 +605,13 @@ static bool IRAM_ATTR  _I2SClocklessVirtualLedDriverinterruptHandler(gdma_channe
 #else
 static void IRAM_ATTR _I2SClocklessVirtualLedDriverinterruptHandler(void *arg);
 #endif
-void IRAM_ATTR transpose16x1_noinline2(unsigned char *A, uint8_t *B);
+static void IRAM_ATTR transpose16x1_noinline2(unsigned char *A, uint8_t *B);
 
-void IRAM_ATTR loadAndTranspose(I2SClocklessVirtualLedDriver *driver);
+static void IRAM_ATTR loadAndTranspose(I2SClocklessVirtualLedDriver *driver);
 static TaskHandle_t I2SClocklessVirtualLedDriver_dispTaskHandle = 0;
 static TaskHandle_t I2SClocklessVirtualLedDriver_returnTaskHandle = 0;
 static void showPixelsTask(void *pvParameters);
-int interruptSource;
+static int interruptSource;
 
 enum colorarrangment
 {
@@ -632,7 +632,7 @@ enum displayMode
     LOOP_INTERUPT,
 };
 
-__OffsetDisplay _internalOffsetDisplay;
+static __OffsetDisplay _internalOffsetDisplay;
 
 static void IRAM_ATTR i2sReset()
 {
