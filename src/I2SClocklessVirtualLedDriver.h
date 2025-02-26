@@ -600,7 +600,7 @@ typedef struct
     int enableOption;
 } __OffsetDisplay;
 #ifndef TAG
-    #define TAG = "I2SClocklessVirtualLedDriver";
+    #define TAG "I2SClocklessVirtualLedDriver";
 #endif
 #ifdef CONFIG_IDF_TARGET_ESP32S3
 static bool IRAM_ATTR  _I2SClocklessVirtualLedDriverinterruptHandler(gdma_channel_handle_t dma_chan, gdma_event_data_t *event_data, void *user_data);
