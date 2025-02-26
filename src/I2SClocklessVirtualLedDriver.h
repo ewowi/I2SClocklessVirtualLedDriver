@@ -311,7 +311,9 @@ static clock_speed clock_800KHZ = {6, 4, 1};
 #include "helper.h"
 #define I2S_DEVICE 0
 
-#define MIN(a, b) (((a) < (b)) ? (a) : (b))
+#ifndef USE_FASTLED
+    #define MIN(a, b) (((a) < (b)) ? (a) : (b))
+#endif
 
 #define NUM_VIRT_PINS 7
 
@@ -597,8 +599,8 @@ typedef struct
     bool enableLoopy;
     int enableOption;
 } __OffsetDisplay;
-#if CORE_DEBUG_LEVEL >= 1
-static const char *TAG = "I2SClocklessVirtualLedDriver";
+#ifndef TAG
+    #define TAG = "I2SClocklessVirtualLedDriver";
 #endif
 #ifdef CONFIG_IDF_TARGET_ESP32S3
 static bool IRAM_ATTR  _I2SClocklessVirtualLedDriverinterruptHandler(gdma_channel_handle_t dma_chan, gdma_event_data_t *event_data, void *user_data);
